@@ -10,17 +10,15 @@ RUN wget -O /tmp/webdav.tar.gz https://github.com/hacdias/webdav/releases/downlo
     rm /tmp/webdav.tar.gz && \
     chmod +x /usr/local/bin/webdav
 
-# Copy our s6 service definitions into the image
-COPY services/ /etc/services.d/
+# Install Tailscale
+RUN apk add --no-cache tailscale
 
-# Ensure correct permissions for service scripts
-RUN chmod -R +x /etc/services.d/
+# Copy the startup script
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
-# Set workdir (optional but useful for debugging)
+# Set the working directory
 WORKDIR /share
 
-# Ensure s6-overlay runs as PID 1
-ENTRYPOINT [ "/init" ]
-
-# CMD must be an empty array (required for Home Assistant)
-CMD []
+# Define the entrypoint script
+CMD [ "/run.sh" ]
