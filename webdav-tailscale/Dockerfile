@@ -2,18 +2,19 @@
 FROM ghcr.io/hassio-addons/base:17.2.1
 
 # Install required dependencies
-RUN apk add --no-cache bash curl
+RUN apk add --no-cache bash curl tailscale
 
-# Install Tailscale using the official install script
-RUN curl -fsSL https://tailscale.com/install.sh | sh
-
-# Install WebDAV (hacdias/webdav)
-RUN wget -qO- https://github.com/hacdias/webdav/releases/download/v3.6.0/webdav_linux_amd64.tar.gz \
-  | tar xz -C /usr/local/bin/ && \
-  chmod +x /usr/local/bin/webdav
+# Install WebDAV (hacdias/webdav) with verification
+RUN wget -O /tmp/webdav.tar.gz https://github.com/hacdias/webdav/releases/download/v3.6.0/webdav_linux_amd64.tar.gz && \
+    tar xzf /tmp/webdav.tar.gz -C /usr/local/bin/ && \
+    rm /tmp/webdav.tar.gz && \
+    chmod +x /usr/local/bin/webdav
 
 # Copy our s6 service definitions into the image
 COPY services/ /etc/services.d/
+
+# Ensure correct permissions for service scripts
+RUN chmod -R +x /etc/services.d/
 
 # Set workdir (optional but useful for debugging)
 WORKDIR /share
