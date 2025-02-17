@@ -1,0 +1,26 @@
+{
+  "name": "WebDAV with Tailscale",
+  "version": "0.1.0",
+  "slug": "webdav_tailscale",
+  "description": "A WebDAV server with Tailscale integration. Tailscale state is persisted so that you don’t need to re-authenticate on every restart.",
+  "startup": "services",
+  "boot": "auto",
+  "arch": ["armhf", "armv7", "aarch64", "amd64"],
+  "host_network": true,
+  "privileged": [
+    "NET_ADMIN",
+    "SYS_MODULE"
+  ],
+  "devices": [
+    "/dev/net/tun"
+  ],
+  "map": [
+    "share:rw"
+  ],
+  "options": {
+    "ts_authkey": ""
+  },
+  "schema": {
+    "ts_authkey": "str"
+  }
+}

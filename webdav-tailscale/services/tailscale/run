@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv bash
+set -e
+
+# Create persistent Tailscale state directory
+mkdir -p /data/tailscale
+
+# Start tailscaled in the background using the persistent state directory
+tailscaled --state=/data/tailscale/tailscaled.state &
+TAILSCALE_PID=$!
+
+# Give tailscaled a moment to start
+sleep 2
+
+# If Tailscale is not yet up, bring it up using the provided auth key
+if ! tailscale status >/dev/null 2>&1; then
+  tailscale up --authkey="${TS_AUTHKEY}" --hostname webdav
+fi
+
+# Wait for tailscaled to exit (if it ever does)
+wait ${TAILSCALE_PID}
