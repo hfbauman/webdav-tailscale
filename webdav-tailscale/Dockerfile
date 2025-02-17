@@ -1,5 +1,5 @@
 # Use the official Home Assistant add-on base image
-FROM ghcr.io/home-assistant/addon-base:stable
+FROM ghcr.io/home-assistant/addon-base:3.21
 
 # Install required packages
 RUN apk add --no-cache wget tar bash
