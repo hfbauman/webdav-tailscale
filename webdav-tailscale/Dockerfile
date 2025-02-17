@@ -1,5 +1,5 @@
 # Use the official Home Assistant add-on base image
-FROM ghcr.io/home-assistant/amd64-base:latest
+FROM ghcr.io/hassio-addons/base/amd64:17.2.1
 
 # Install required dependencies
 RUN apk add --no-cache bash curl wget ca-certificates
