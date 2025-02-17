@@ -2,10 +2,10 @@
 FROM ghcr.io/hassio-addons/base:17.2.1
 
 # Install required dependencies
-RUN apk add --no-cache bash curl tailscale
+RUN apk add --no-cache bash tailscale wget ca-certificates
 
-# Install WebDAV (hacdias/webdav) with verification
-RUN wget -O /tmp/webdav.tar.gz https://github.com/hacdias/webdav/releases/download/v3.6.0/webdav_linux_amd64.tar.gz && \
+# Install WebDAV (hacdias/webdav) v5.7.3
+RUN wget -O /tmp/webdav.tar.gz https://github.com/hacdias/webdav/releases/download/v5.7.3/linux-amd64-webdav.tar.gz && \
     tar xzf /tmp/webdav.tar.gz -C /usr/local/bin/ && \
     rm /tmp/webdav.tar.gz && \
     chmod +x /usr/local/bin/webdav
