@@ -19,5 +19,8 @@ RUN chmod -R +x /etc/services.d/
 # Set workdir (optional but useful for debugging)
 WORKDIR /share
 
-# Set entrypoint to s6-overlay init system (Required for Home Assistant)
+# Ensure s6-overlay runs as PID 1
 ENTRYPOINT [ "/init" ]
+
+# CMD must be an empty array (required for Home Assistant)
+CMD []
