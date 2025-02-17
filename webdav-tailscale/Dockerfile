@@ -1,5 +1,5 @@
 # Use the official Home Assistant add-on base image
-FROM ghcr.io/hassio-addons/base
+FROM ghcr.io/hassio-addons/base:17.2.1
 
 # Install required packages
 RUN apk add --no-cache wget tar bash
