@@ -2,7 +2,7 @@
 FROM ghcr.io/hassio-addons/base:17.2.1
 
 # Install required dependencies
-RUN apk add --no-cache bash tailscale wget ca-certificates
+RUN apk add --no-cache bash curl wget ca-certificates
 
 # Install WebDAV (hacdias/webdav) v5.7.3
 RUN wget -O /tmp/webdav.tar.gz https://github.com/hacdias/webdav/releases/download/v5.7.3/linux-amd64-webdav.tar.gz && \
@@ -19,5 +19,5 @@ RUN chmod -R +x /etc/services.d/
 # Set workdir (optional but useful for debugging)
 WORKDIR /share
 
-# Start the container
-CMD [ "/init" ]
+# Set entrypoint to s6-overlay init system (Required for Home Assistant)
+ENTRYPOINT [ "/init" ]
