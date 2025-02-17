@@ -1,6 +1,6 @@
 {
   "name": "WebDAV with Tailscale",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "slug": "webdav_tailscale",
   "description": "A WebDAV server with Tailscale integration. Tailscale state is persisted so that you don’t need to re-authenticate on every restart.",
   "startup": "services",
